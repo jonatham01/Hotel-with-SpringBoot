@@ -26,15 +26,15 @@ public class BedService {
     }
 
     public List<Bed> getAllBedsByDate(Date startDate, Date endDate) {
-        return bedRepository.findByDateBetweenOrderByPriceAsc(startDate, endDate);
+        return bedRepository.findAllByDateBetweenOrderByPriceAsc(startDate, endDate);
     }
 
     public List<Bed> getBedsByBedCategoryId(int bedCategoryId){
-        return bedRepository.findByBedCategoryId(bedCategoryId);
+        return bedRepository.findAllByBedCategoryId(bedCategoryId);
     }
 
     public List<Bed> getBedsFiltered(Date startDate, Date endDate,int bedCategoryId){
-        return bedRepository.findByDateBetweenOrderByPriceAsc(startDate, endDate)
+        return bedRepository.findAllByDateBetweenOrderByPriceAsc(startDate, endDate)
                 .stream().filter(data -> data.getBedCategoryId() == bedCategoryId).toList();
     }
 

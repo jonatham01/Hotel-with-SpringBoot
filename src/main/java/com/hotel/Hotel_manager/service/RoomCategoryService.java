@@ -35,11 +35,11 @@ public class RoomCategoryService {
      }
 
      public List<RoomCategory> getByPriceAsc(double price1,double price2) {
-         return repository.findByPriceBetweenOrderByPriceAsc(price1,price2);
+         return repository.findAllByPriceBetweenOrderByPriceAsc(price1,price2);
      }
 
     public List<RoomCategory> getByPriceDesc(double price1,double price2) {
-        return repository.findByPriceBetweenOrderByPriceDesc(price1,price2);
+        return repository.findAllByPriceBetweenOrderByPriceDesc(price1,price2);
     }
 
      public RoomCategory save(NewRoomCategory dto) {

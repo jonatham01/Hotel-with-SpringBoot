@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface BedCategoryRepository extends JpaRepository<BedCategory, Integer> {
 
-    List<BedCategory> findByKind(String kind);
-    List<BedCategory> findByColor(String color);
+    List<BedCategory> findAllByKind(String kind);
+    List<BedCategory> findAllByColor(String color);
 }

@@ -35,10 +35,10 @@ public class BedCategoryService  {
         return bedCategoryRepository.findById(id);
     }
     public List<BedCategory> getByColor(String color){
-        return bedCategoryRepository.findByColor(color);
+        return bedCategoryRepository.findAllByColor(color);
     }
     public List<BedCategory> getByKind(String kind){
-        return bedCategoryRepository.findByKind(kind);
+        return bedCategoryRepository.findAllByKind(kind);
     }
 
     public BedCategory save(newBedCategory dto){

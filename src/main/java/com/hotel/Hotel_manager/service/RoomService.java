@@ -27,11 +27,11 @@ public class RoomService {
         return roomRepository.findById(id).get();
     }
     public List<Room> getRoomByFloor(int floor) {
-        return roomRepository.findByFloorNumber(floor);
+        return roomRepository.findAllByFloorNumber(floor);
     }
 
     public  List<Room> getRoomByCategoryId(int categoryId) {
-        return roomRepository.findByCategoryId(categoryId);
+        return roomRepository.findAllByCategoryId(categoryId);
     }
 
     public Room saveRoom(NewRoom newRoom) {

@@ -9,8 +9,8 @@ import java.util.List;
 @Repository
 public interface RoomCategoryRepository extends JpaRepository<RoomCategory, Integer> {
 
-    List<RoomCategory> findByPriceBetweenOrderByPriceAsc(double price1, double price2);
+    List<RoomCategory> findAllByPriceBetweenOrderByPriceAsc(double price1, double price2);
 
-    List<RoomCategory> findByPriceBetweenOrderByPriceDesc(double price1, double price2);
+    List<RoomCategory> findAllByPriceBetweenOrderByPriceDesc(double price1, double price2);
 
 }

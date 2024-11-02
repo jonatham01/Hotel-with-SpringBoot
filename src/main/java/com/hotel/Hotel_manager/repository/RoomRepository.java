@@ -9,6 +9,6 @@ import java.util.Optional;
 
 @Repository
 public interface RoomRepository extends JpaRepository<Room, Integer> {
-    List<Room> findByCategoryId(int categoryId);
-    List<Room> findByFloorNumber(int floorNumber);
+    List<Room> findAllByCategoryId(int categoryId);
+    List<Room> findAllByFloorNumber(int floorNumber);
 }

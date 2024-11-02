@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface BedRepository extends JpaRepository<Bed, Integer> {
 
-    List<Bed> findByDateBetweenOrderByPriceAsc(Date startDate, Date endDate);
+    List<Bed> findAllByDateBetweenOrderByPriceAsc(Date startDate, Date endDate);
 
-    List<Bed> findByBedCategoryId(int bedCategoryId);
+    List<Bed> findAllByBedCategoryId(int bedCategoryId);
 }
