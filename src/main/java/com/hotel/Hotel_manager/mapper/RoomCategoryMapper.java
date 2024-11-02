@@ -2,7 +2,9 @@ package com.hotel.Hotel_manager.mapper;
 
 import com.hotel.Hotel_manager.dto.NewRoomCategory;
 import com.hotel.Hotel_manager.entity.RoomCategory;
+import org.springframework.stereotype.Component;
 
+@Component
 public class RoomCategoryMapper {
 
     public RoomCategory dtoToRoomCategory(NewRoomCategory dto) {

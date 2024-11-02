@@ -2,7 +2,9 @@ package com.hotel.Hotel_manager.mapper;
 
 import com.hotel.Hotel_manager.dto.NewResevation;
 import com.hotel.Hotel_manager.entity.Reservation;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ReservationMapper {
 
     Reservation dtoToReservation(NewResevation newResevation){

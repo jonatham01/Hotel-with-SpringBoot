@@ -2,7 +2,9 @@ package com.hotel.Hotel_manager.mapper;
 
 import com.hotel.Hotel_manager.dto.newBill;
 import com.hotel.Hotel_manager.entity.Bill;
+import org.springframework.stereotype.Component;
 
+@Component
 public class BillMapper {
 
     Bill dtoToBill(newBill dto) {

@@ -3,6 +3,7 @@ package com.hotel.Hotel_manager.service;
 import com.hotel.Hotel_manager.dto.NewRoom;
 import com.hotel.Hotel_manager.entity.Room;
 import com.hotel.Hotel_manager.repository.RoomRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,14 +12,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
+
 public class RoomService {
 
-    @Autowired
-    private RoomRepository roomRepository;
+    private final RoomRepository roomRepository;
 
-    public RoomService(RoomRepository roomRepository) {
-        this.roomRepository = roomRepository;
-    }
+
 
     public List<Room> getAllRooms() {
         return roomRepository.findAll();
