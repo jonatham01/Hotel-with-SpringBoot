@@ -20,7 +20,7 @@ public class Room {
     private int id;
 
     @Column(name = "piso")
-    private int floorNumber ;
+    private int floorNumber;
 
     @Column(name = "telefono")
     private int contactNumber;
