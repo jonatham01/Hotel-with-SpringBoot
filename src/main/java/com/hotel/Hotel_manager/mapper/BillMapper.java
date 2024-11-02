@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class BillMapper {
 
-    Bill dtoToBill(newBill dto) {
+    public Bill dtoToBill(newBill dto) {
         Bill bill = new Bill();
         bill.setCategory(dto.getCategory());
         bill.setDate(dto.getDate());
