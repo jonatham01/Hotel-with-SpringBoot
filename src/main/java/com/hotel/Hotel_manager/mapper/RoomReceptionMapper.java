@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class RoomReceptionMapper {
 
-    RoomReception dtoToRoomReception(NewRoomReception dto) {
+    public RoomReception dtoToRoomReception(NewRoomReception dto) {
         RoomReception roomReception = new RoomReception();
         roomReception.setRoomId(dto.getRoomId());
         roomReception.setCategory(dto.getCategory());
