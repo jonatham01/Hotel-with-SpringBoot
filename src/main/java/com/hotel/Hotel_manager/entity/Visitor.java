@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class visitor {
+public class Visitor {
 
     @Id
     @Column(name = "cedula")
