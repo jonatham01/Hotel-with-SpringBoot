@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ReservationMapper {
 
-    Reservation dtoToReservation(NewResevation newResevation){
+    public Reservation dtoToReservation(NewResevation newResevation){
         Reservation reservation = new Reservation();
         reservation.setReservationDate(newResevation.getReservationDate());
         reservation.setBillId(newResevation.getBillId());
