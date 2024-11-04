@@ -67,7 +67,12 @@
             flex-direction: column;
             padding: 0 40px 0 0;
             gap: 12px;
-
+        }
+        .boton-active{
+            display: block;
+        }
+        .boton-inactive{
+            display: none;
         }
     </style>
 </head>
@@ -81,6 +86,7 @@
         <div class="content" >
             <form action="${pageContext.request.contextPath}/roomcategories/save" method="post" class="${name==null ? 'active' : 'inactive'}">
                 <p>Crea una nueva categoria </p>
+
                 <input type="hidden" name="idCategoriaHabitacion" id="id" >
                 <label for="nombre">Nombre</label>
                 <input type="text" name="name" id="nombre" placeholder="Ingrese el nombre de la categoria" required>
@@ -93,17 +99,25 @@
 
             </form>
 
-            <form action="true"  class="${name!=null ? 'active' : 'inactive'}" >
-                <p>Edita la categoria </p>
-                <input type="text" name="id" id="id" style="display: none;" required value="${id}">
-                <label for="nombre">Nombre</label>
-                <input type="text" name="name" id="nombre" placeholder="Nombre" required value="${name}">
-                <label for="precio">Precio por noche:</label>
-                <input type="number" name="price" id="precio" placeholder="Precio noche" required value="${price}">
-                <label for="url" >Enlace url de la foto:</label>
-                <input type="url" name="url" id="url" placeholder="Url" value="${url}">
-                <button type="submit" id="boton" name="boton" > Editar Categoria</button>
-            </form>
+            <div class="${name!=null ? 'boton-active' : 'boton-inactive'}" >
+                <form action="true"  class="${name!=null ? 'active' : 'inactive'}" >
+                    <p>Edita la categoria </p>
+                    <input type="text" name="id" id="id" style="display: none;" required value="${id}">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" name="name" id="nombre" placeholder="Nombre" required value="${name}">
+                    <label for="precio">Precio por noche:</label>
+                    <input type="number" name="price" id="precio" placeholder="Precio noche" required value="${price}">
+                    <label for="url" >Enlace url de la foto:</label>
+                    <input type="url" name="url" id="url" placeholder="Url" value="${url}">
+                    <button type="submit" id="boton" name="boton" > Editar Categoria</button>
+
+                </form>
+                <br>
+                <form action="roomcategories" class="${name!=null ? 'active' : 'inactive'}">
+                     <button type="submit"  style="padding: 8px;" > Cerrar edición y crear nueva categoria</button>
+                </form>
+            </div>
+
 
 
 
