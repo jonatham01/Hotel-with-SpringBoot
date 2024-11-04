@@ -17,15 +17,5 @@ public interface ReservationVisitorRepository extends JpaRepository<ReservationV
 
     List<ReservationVisitor> findByDateBetween(Date start, Date end);
 
-    @Modifying
-    @Transactional
-    @Query("UPDATE reservacion_huesped e " +
-            "SET e.date =:date, e.id_reservacion = :newReservationId, e.id_huesped = :newVisitorId " +
-            "WHERE e.id_reservacion = :reservationId AND e.id_huesped =:visitorId")
-    void updateFirstById(
-            @Param("date") Date date,
-            @Param("reservationId") Long reservationId,
-            @Param("visitorId") int  visitorId,
-            @Param("newReservationId") Long newReservationId ,
-            @Param("newVisitorId") int newVisitorId);
+
 }

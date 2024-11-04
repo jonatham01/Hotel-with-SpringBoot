@@ -37,11 +37,14 @@ public class ReservationVisitorService {
         return repository.findByDateBetween(date1,date2);
     }
 
+    /*
     public ReservationVisitor update(long reservationVisitorId, int visitorId, Date reservationDate, long newReservationVisitorId, int newVisitorId) {
         repository.updateFirstById(reservationDate, newReservationVisitorId, newVisitorId,reservationVisitorId,visitorId);
         ReservationVisitorPk pk = new ReservationVisitorPk(newReservationVisitorId, newVisitorId);
         return repository.findById(pk).orElse(null);
     }
+
+     */
 
     public boolean delete(long reservationVisitorId, int visitorId) {
         ReservationVisitorPk pk = new ReservationVisitorPk(reservationVisitorId, visitorId);

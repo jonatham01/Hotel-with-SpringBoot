@@ -6,21 +6,13 @@ import com.hotel.Hotel_manager.mapper.RoomCategoryMapper;
 import com.hotel.Hotel_manager.repository.RoomCategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.repository.query.FluentQuery;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Function;
 
 @Service
 @RequiredArgsConstructor
 public class RoomCategoryService {
-
 
      private final RoomCategoryRepository repository;
      private final RoomCategoryMapper mapper;
@@ -31,7 +23,7 @@ public class RoomCategoryService {
      }
 
      public RoomCategory getById(int id) {
-         return repository.findById(id).get();
+         return repository.findById(id).orElse(null);
      }
 
      public List<RoomCategory> getByPriceAsc(double price1,double price2) {
@@ -43,8 +35,19 @@ public class RoomCategoryService {
     }
 
      public RoomCategory save(NewRoomCategory dto) {
+        System.out.println("data del dto:"
+                + "nombre" + dto.getName()
+                +"  ,precio:" + dto.getPrice()
+                +"  ,url" + dto.getUrl()
+        );
          RoomCategory roomCategory= mapper.dtoToRoomCategory(dto);
-         return repository.save(roomCategory);
+         try {
+             return repository.save(roomCategory);
+         }
+         catch (Exception e) {
+             e.printStackTrace();
+         }
+         return null;
      }
 
      public Optional<RoomCategory> update(NewRoomCategory dto, int id) {

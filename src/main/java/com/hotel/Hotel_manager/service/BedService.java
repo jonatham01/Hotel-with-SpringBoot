@@ -7,7 +7,8 @@ import com.hotel.Hotel_manager.repository.BedRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+
+import java.sql.Date;
 import java.util.List;
 
 @Service
@@ -25,18 +26,21 @@ public class BedService {
         return bedRepository.findById(id).get();
     }
 
-    public List<Bed> getAllBedsByDate(Date startDate, Date endDate) {
-        return bedRepository.findAllByDateBetweenOrderByPriceAsc(startDate, endDate);
-    }
-
     public List<Bed> getBedsByBedCategoryId(int bedCategoryId){
         return bedRepository.findAllByBedCategoryId(bedCategoryId);
+    }
+
+    /*
+    public List<Bed> getAllBedsByDate(Date startDate, Date endDate) {
+        return bedRepository.findAllByDateBetweenOrderByPriceAsc(startDate, endDate);
     }
 
     public List<Bed> getBedsFiltered(Date startDate, Date endDate,int bedCategoryId){
         return bedRepository.findAllByDateBetweenOrderByPriceAsc(startDate, endDate)
                 .stream().filter(data -> data.getBedCategoryId() == bedCategoryId).toList();
     }
+
+     */
 
     public Bed saveBed(NewBed dto) {
         Bed bed = bedMapper.dtoToBed(dto);
