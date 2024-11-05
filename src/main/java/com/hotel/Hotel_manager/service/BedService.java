@@ -30,17 +30,18 @@ public class BedService {
         return bedRepository.findAllByBedCategoryId(bedCategoryId);
     }
 
-    /*
-    public List<Bed> getAllBedsByDate(Date startDate, Date endDate) {
-        return bedRepository.findAllByDateBetweenOrderByPriceAsc(startDate, endDate);
+    public List<Bed> getAllBedsByDate( Date startDate, Date endDate) {
+        return bedRepository.findAll().stream()
+                .filter(bed -> bed.getDate().after(startDate) && bed.getDate().before(endDate))
+                .toList();
     }
 
-    public List<Bed> getBedsFiltered(Date startDate, Date endDate,int bedCategoryId){
-        return bedRepository.findAllByDateBetweenOrderByPriceAsc(startDate, endDate)
-                .stream().filter(data -> data.getBedCategoryId() == bedCategoryId).toList();
+    public List<Bed> getAllFiltered( Date startDate, Date endDate, int category) {
+        return bedRepository.findAll().stream()
+                .filter(bed -> bed.getDate().after(startDate) && bed.getDate().before(endDate))
+                .filter(bed -> bed.getBedCategoryId() == category)
+                .toList();
     }
-
-     */
 
     public Bed saveBed(NewBed dto) {
         Bed bed = bedMapper.dtoToBed(dto);
@@ -54,6 +55,11 @@ public class BedService {
         }catch (Exception e){
             return false;
         }
+    }
+
+    public Bed updateBed(Bed bed,int id){
+        if(bedRepository.findById(id).isPresent()) return bedRepository.save(bed);
+        return null;
     }
 }
 
