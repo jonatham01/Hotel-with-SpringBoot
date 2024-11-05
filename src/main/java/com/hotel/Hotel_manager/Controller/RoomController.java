@@ -2,20 +2,22 @@ package com.hotel.Hotel_manager.Controller;
 
 import com.hotel.Hotel_manager.dto.NewRoom;
 import com.hotel.Hotel_manager.entity.Room;
+import com.hotel.Hotel_manager.service.RoomCategoryService;
 import com.hotel.Hotel_manager.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
+@RequestMapping("room")
 public class RoomController {
 
     @Autowired
     private RoomService roomService;
+
+    @Autowired
+    private RoomCategoryService roomCategoryService;
 
     @GetMapping("all")
     public String roomsModule(Model model,
@@ -28,6 +30,7 @@ public class RoomController {
         model.addAttribute("roomByFloor",roomService.getRoomByFloor(floor));
         model.addAttribute("roomsByCategory", roomService.getRoomByCategoryId(category));
         model.addAttribute("message",message);
+        model.addAttribute("categories",roomCategoryService.getAll());
         return "room";
     }
 

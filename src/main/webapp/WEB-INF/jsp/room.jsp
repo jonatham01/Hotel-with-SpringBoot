@@ -7,9 +7,6 @@
 <%@page import="com.hotel.Hotel_manager.dto.NewRoom" %>
 <%@page import="com.hotel.Hotel_manager.service.RoomService" %>
 <%@ page import="java.util.Optional" %>
-<%@ page import="com.hotel.Hotel_manager.mapper.RoomMapper" %>
-<%@ page import="com.hotel.Hotel_manager.repository.RoomRepository" %>
-<%@ page import="com.hotel.Hotel_manager.service.RoomCategoryService" %>
 <%@ page import="com.hotel.Hotel_manager.entity.RoomCategory" %>
 
 <!doctype html>
@@ -64,76 +61,20 @@
     </div>
 
     <div class="content">
-        <form action="">
+        <form action= "${pageContext.request.contextPath}/room/save" method="post">
             <input type="hidden" name="idHabitacion" id="id" >
-
             <label for="piso">piso</label>
             <input type="number" name="piso" id="piso" placeholder="Ingrese piso de la habitación" required>
-
             <label for="contacto">Número de contacto:</label>
             <input type="number" name="contacto" id="contacto" placeholder="Ingrese número de contacto" required>
-
             <label for="categoria" >Categoria:</label>
             <select  name="categoria" id="categoria">
-                <%
-                    RoomCategoryService servicioCategory = new RoomCategoryService();
-                    List<RoomCategory> categoriasDisponibles = servicioCategory.getAll();
-                    for (RoomCategory cat : categoriasDisponibles) {
-
-                %>
-                    <option value=<%= cat.getId() %>> <%= cat.getName() %> - <%= cat.getPrice() %> </option>
-                <%
-                    }
-                %>
-
+                 <c:forEach var="category" items="${categories}">
+                    <option value=${category.id}> ${category.name} -$ ${category.price} </option>
+                 </c:forEach>
             </select>
-
-            <input type="hidden" name="accion" id="accion" value="enviarFormulario">
             <button type="submit" id="boton" name="boton"> Crear</button>
         </form>
-        <%
-            RoomService servicio = new RoomService();
-            String idParam = request.getParameter("idHabitacion");
-            int idEditar = -1;
-            if( idParam != null  && !idParam.isEmpty()){
-                idEditar = Integer.parseInt(idParam);
-            }
-
-
-            String accion = request.getParameter("accion");
-            if ("enviarFormulario".equals(accion)) {
-                if (request.getParameter("piso") != null && request.getParameter("contacto") != null && request.getParameter("categoria") != null){
-                    int piso = Integer.parseInt(request.getParameter("piso"));
-                    int contacto = Integer.parseInt(request.getParameter("contacto"));
-                    int categoria = Integer.parseInt(request.getParameter("categoria"));
-                    servicio.saveRoom(new NewRoom(piso,contacto,categoria));
-                    out.println("<script>");
-                    out.println("document.getElementById('id').value = '';");
-                    out.println("document.getElementById('nombre').value = '';");
-                    out.println("document.getElementById('precio').value = '';");
-                    out.println("document.getElementById('url').value = '';");
-                    out.println("document.getElementById('accion').value = 'enviarFormulario';");
-                    out.println("</script>");
-                }
-            }
-            else if("editarFormulario".equals(accion) && idEditar  != -1){
-
-                if (request.getParameter("piso") != null && request.getParameter("contacto") != null && request.getParameter("categoria") != null){
-                    int piso = Integer.parseInt(request.getParameter("piso"));
-                    int contacto = Integer.parseInt(request.getParameter("contacto"));
-                    int categoria = Integer.parseInt(request.getParameter("categoria"));
-                    Optional<Room> newRoom = servicio.updateRoom(new NewRoom(piso,contacto,categoria)  ,idEditar);
-                    if(newRoom.isPresent()){
-                        out.println("<script>");
-                        out.println("document.getElementById('nombre').value = '';");
-                        out.println("document.getElementById('precio').value = '';");
-                        out.println("document.getElementById('url').value = '';");
-                        out.println("document.getElementById('accion').value = 'enviarFormulario';");
-                        out.println("</script>");
-                    }
-                }
-            }
-        %>
 
         <div class="listado">
             <div class="consulta"></div>
@@ -145,60 +86,28 @@
                     <th>Categoria</th>
                     <th>Modificar</th>
                 </tr>
-                <%
-                    List<Room> listado = servicio.getAllRooms();
-                    if (listado == null) {
-                        out.println("<tr><td>------------</td><td>------------</td><td>------------</td><td>------------</td></tr>");
-                    } else {
-                        for (Room data : listado) {
-                %>
-                <tr>
-                    <td><%= data.getFloorNumber() %></td>
-                    <td><%= data.getContactNumber() %></td>
-                    <td><%= data.getRoomCategory() %></td>
-                    <td>
-                        <form action="">
-                            <input type="hidden" name=<%= data.getId() %> value="enviarFormulario">
-                            <button type="submit">Editar</button>
-                            <%
-                                String accionEditar;
-                                accionEditar = request.getParameter(String.valueOf(data.getId()));
 
-                                if ("enviarFormulario".equals(accionEditar)) {
+                <c:forEach >
+                    <tr>
+                        <td> ${room.floorNumber} </td>
+                        <td> ${room.contactNumber} </td>
+                        <td> ${room.category.name} </td>
+                        <td>
+                            <form  id="editForm">
+                                <input type="number" name="id" value="${room.id}" style="display: none">
+                                <button type="submit">Editar</button>
+                            </form>
 
-                                    Room itemEditar = servicio.getRoomById(data.getId());
-                                    if (itemEditar != null) {
+                            <form action="${pageContext.request.contextPath}/room/delete?id=${room.id}" method="post">
+                                <button type="submit">Borrar</button>
+                            </form>
+                        </td>
 
-                                        // Asignar valores de la categoría a los campos del formulario
-                                        int id = itemEditar.getId();
-                                        int contacto = itemEditar.getContactNumber();
-                                        int piso = itemEditar.getFloorNumber();
-                                        int categoria = itemEditar.getCategoryId();
+                    </tr>
 
-                                        // Cargar los datos en el formulario
-                                        out.println("<script>");
-                                        out.println("document.getElementById('piso').value = '" + piso + "';");
-                                        out.println("document.getElementById('contacto').value = '" + contacto + "';");
-                                        out.println("document.getElementById('categoria').value = '" + categoria + "';");
+                </c:forEach>
 
-                                        out.println("document.getElementsByName('accion')[0].value = 'editarFormulario';");
-                                        out.println("document.getElementsByName('idHabitacion')[0].value = " + id + ";");
 
-                                        out.println("</script>");
-
-                                    }
-
-                                }
-
-                            %>
-                        </form>
-
-                    </td>
-                </tr>
-                <%
-                        }
-                    }
-                %>
 
             </table>
         </div>

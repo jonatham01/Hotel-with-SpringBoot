@@ -19,6 +19,9 @@ public class Room {
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private int id;
 
+    @Column(name = "nombre")
+    private String name;
+
     @Column(name = "piso")
     private int floorNumber;
 

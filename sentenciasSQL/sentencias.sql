@@ -78,6 +78,7 @@ COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE habitacion(
     id_habitacion INT NOT NULL AUTO_INCREMENT,
+    nombre VARCHAR(10),
     piso INT NOT NULL,
     telefono INT NOT NULL,
     id_categoria INT NOT NULL,

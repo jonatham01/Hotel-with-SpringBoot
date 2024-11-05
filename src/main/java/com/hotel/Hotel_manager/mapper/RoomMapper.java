@@ -9,6 +9,7 @@ public class RoomMapper {
 
     Room dtoToRoom(NewRoom dto){
         Room room = new Room();
+        room.setName(dto.getName());
         room.setCategoryId(dto.getCategoryId());
         room.setContactNumber(dto.getContactNumber());
         room.setFloorNumber(dto.getFloorNumber());

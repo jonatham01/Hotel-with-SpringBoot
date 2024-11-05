@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class NewRoom {
+    private String name;
     private int floorNumber ;
     private int contactNumber;
     private int categoryId;
